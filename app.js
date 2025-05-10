@@ -1,22 +1,27 @@
-document.getElementById("ageForm").addEventListener("submit", function (e) {
-  e.preventDefault(); // prevent page reload
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("ageForm");
+  const output = document.getElementById("output");
 
-  let myName = document.getElementById("nameInput").value.trim().toLowerCase();
-  let myAge = parseInt(document.getElementById("ageInput").value);
+  form.addEventListener("submit", function (e) {
+    e.preventDefault(); // ✅ Prevent form from refreshing the page
 
-  if (!myName || isNaN(myAge) || myAge < 1) {
-    document.getElementById("output").textContent = "Please enter a valid name and age.";
-    return;
-  }
+    const nameInput = document.getElementById("nameInput").value.trim();
+    const ageInput = parseInt(document.getElementById("ageInput").value);
 
-  let earlyYears = 2;
-  earlyYears *= 10.5;
+    if (!nameInput || isNaN(ageInput) || ageInput < 1) {
+      output.textContent = "❌ Please enter a valid name and a positive age.";
+      return;
+    }
 
-  let laterYears = myAge - 2;
-  laterYears *= 4;
+    let earlyYears = 2;
+    earlyYears *= 10.5;
 
-  let myAgeInDogYears = earlyYears + laterYears;
+    let laterYears = ageInput - 2;
+    laterYears *= 4;
 
-  document.getElementById("output").textContent =
-    `My name is ${myName}. I am ${myAge} years old in human years which is ${myAgeInDogYears} years old in dog years.`;
+    let myAgeInDogYears = earlyYears + laterYears;
+    let myName = nameInput.toLowerCase();
+
+    output.textContent = `🐶 My name is ${myName}. I am ${ageInput} years old in human years which is ${myAgeInDogYears} years old in dog years.`;
+  });
 });
